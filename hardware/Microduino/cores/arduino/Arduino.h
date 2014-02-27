@@ -86,7 +86,7 @@ extern "C"{
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
 
-typedef unsigned int word;
+//typedef unsigned int word;
 
 #define bit(b) (1UL << (b))
 
