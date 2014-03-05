@@ -86,7 +86,10 @@ extern "C"{
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
 
-//typedef unsigned int word;
+#ifndef CEU_WORD
+#define CEU_WORD
+typedef unsigned int word;
+#endif
 
 #define bit(b) (1UL << (b))
 
