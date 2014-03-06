@@ -249,11 +249,15 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 # define PSTR(s) (__extension__({static char __c[] PROGMEM = (s); &__c[0];}))
 #endif /* DOXYGEN */
 
-#define _CEU_APP_ADDR ((uint16_t *) 0x011e)
+#ifdef CEU_OS
+#define _CEU_APP_ADDR (*((uint16_t *) 0x011e))
+#else
+#define _CEU_APP_ADDR 0
+#endif
 
 #define __LPM_classic__(addr)   \
 (__extension__({                \
-	uint16_t __addr16 = (uint16_t)(*_CEU_APP_ADDR + addr); \
+    uint16_t __addr16 = (uint16_t)(_CEU_APP_ADDR + addr); \
     uint8_t __result;           \
     __asm__                     \
     (                           \
@@ -268,7 +272,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __LPM_enhanced__(addr)  \
 (__extension__({                \
-	uint16_t __addr16 = (uint16_t)(*_CEU_APP_ADDR + addr); \
+    uint16_t __addr16 = (uint16_t)(_CEU_APP_ADDR + addr); \
     uint8_t __result;           \
     __asm__                     \
     (                           \
@@ -281,7 +285,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __LPM_word_classic__(addr)          \
 (__extension__({                            \
-	uint16_t __addr16 = (uint16_t)(*_CEU_APP_ADDR + addr);   \
+    uint16_t __addr16 = (uint16_t)(_CEU_APP_ADDR + addr);   \
     uint16_t __result;                      \
     __asm__                                 \
     (                                       \
@@ -299,7 +303,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __LPM_word_enhanced__(addr)         \
 (__extension__({                            \
-	uint16_t __addr16 = (uint16_t)(*_CEU_APP_ADDR + addr);   \
+    uint16_t __addr16 = (uint16_t)(_CEU_APP_ADDR + addr);   \
     uint16_t __result;                      \
     __asm__                                 \
     (                                       \
@@ -313,7 +317,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __LPM_dword_classic__(addr)         \
 (__extension__({                            \
-	uint16_t __addr16 = (uint16_t)(*_CEU_APP_ADDR + addr);   \
+    uint16_t __addr16 = (uint16_t)(_CEU_APP_ADDR + addr);   \
     uint32_t __result;                      \
     __asm__                                 \
     (                                       \
@@ -337,7 +341,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __LPM_dword_enhanced__(addr)        \
 (__extension__({                            \
-	uint16_t __addr16 = (uint16_t)(*_CEU_APP_ADDR + addr);   \
+    uint16_t __addr16 = (uint16_t)(_CEU_APP_ADDR + addr);   \
     uint32_t __result;                      \
     __asm__                                 \
     (                                       \
@@ -353,7 +357,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __LPM_float_classic__(addr)         \
 (__extension__({                            \
-	uint16_t __addr16 = (uint16_t)(*_CEU_APP_ADDR + addr);   \
+    uint16_t __addr16 = (uint16_t)(_CEU_APP_ADDR + addr);   \
     float __result;                         \
     __asm__                                 \
     (                                       \
@@ -377,7 +381,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __LPM_float_enhanced__(addr)        \
 (__extension__({                            \
-	uint16_t __addr16 = (uint16_t)(*_CEU_APP_ADDR + addr);   \
+    uint16_t __addr16 = (uint16_t)(_CEU_APP_ADDR + addr);   \
     float __result;                         \
     __asm__                                 \
     (                                       \
@@ -447,7 +451,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __ELPM_classic__(addr)      \
 (__extension__({                    \
-	uint32_t __addr32 = (uint32_t)(*_CEU_APP_ADDR + addr); \
+    uint32_t __addr32 = (uint32_t)(_CEU_APP_ADDR + addr); \
     uint8_t __result;               \
     __asm__                         \
     (                               \
@@ -466,7 +470,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __ELPM_enhanced__(addr)     \
 (__extension__({                    \
-	uint32_t __addr32 = (uint32_t)(*_CEU_APP_ADDR + addr); \
+    uint32_t __addr32 = (uint32_t)(_CEU_APP_ADDR + addr); \
     uint8_t __result;               \
     __asm__                         \
     (                               \
@@ -481,9 +485,9 @@ typedef uint64_t  prog_uint64_t PROGMEM;
     __result;                       \
 }))
 
-#define __ELPM_word_classic__(*_CEU_APP_ADDR + addr)     \
+#define __ELPM_word_classic__(_CEU_APP_ADDR + addr)     \
 (__extension__({                        \
-	uint32_t __addr32 = (uint32_t)(*_CEU_APP_ADDR + addr); \
+    uint32_t __addr32 = (uint32_t)(_CEU_APP_ADDR + addr); \
     uint16_t __result;                  \
     __asm__                             \
     (                                   \
@@ -508,7 +512,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __ELPM_word_enhanced__(addr)    \
 (__extension__({                        \
-	uint32_t __addr32 = (uint32_t)(*_CEU_APP_ADDR + addr); \
+    uint32_t __addr32 = (uint32_t)(_CEU_APP_ADDR + addr); \
     uint16_t __result;                  \
     __asm__                             \
     (                                   \
@@ -526,7 +530,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __ELPM_dword_classic__(addr)      \
 (__extension__({                          \
-	uint32_t __addr32 = (uint32_t)(*_CEU_APP_ADDR + addr); \
+    uint32_t __addr32 = (uint32_t)(_CEU_APP_ADDR + addr); \
     uint32_t __result;                    \
     __asm__                               \
     (                                     \
@@ -563,7 +567,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __ELPM_dword_enhanced__(addr)     \
 (__extension__({                          \
-	uint32_t __addr32 = (uint32_t)(*_CEU_APP_ADDR + addr); \
+    uint32_t __addr32 = (uint32_t)(_CEU_APP_ADDR + addr); \
     uint32_t __result;                    \
     __asm__                               \
     (                                     \
@@ -583,7 +587,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __ELPM_float_classic__(addr)      \
 (__extension__({                          \
-	uint32_t __addr32 = (uint32_t)(*_CEU_APP_ADDR + addr); \
+    uint32_t __addr32 = (uint32_t)(_CEU_APP_ADDR + addr); \
     float __result;                       \
     __asm__                               \
     (                                     \
@@ -620,7 +624,7 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 
 #define __ELPM_float_enhanced__(addr)     \
 (__extension__({                          \
-	uint32_t __addr32 = (uint32_t)(*_CEU_APP_ADDR + addr); \
+    uint32_t __addr32 = (uint32_t)(_CEU_APP_ADDR + addr); \
     float __result;                       \
     __asm__                               \
     (                                     \
