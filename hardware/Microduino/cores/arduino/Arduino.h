@@ -94,6 +94,12 @@ typedef unsigned int word;
 #define bit(b) (1UL << (b))
 
 typedef uint8_t boolean;
+
+#ifndef CEU_BYTE
+#define CEU_BYTE
+typedef unsigned char byte;
+#endif
+
 typedef uint8_t byte;
 
 void init(void);
