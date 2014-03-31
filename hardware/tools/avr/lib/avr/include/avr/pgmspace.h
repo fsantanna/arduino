@@ -249,8 +249,9 @@ typedef uint64_t  prog_uint64_t PROGMEM;
 # define PSTR(s) (__extension__({static char __c[] PROGMEM = (s); &__c[0];}))
 #endif /* DOXYGEN */
 
+/* TODO: move to Makefile: -D... */
 #ifdef CEU_OS
-#define _CEU_APP_ADDR (*((uint16_t *) 0x011e))
+#define _CEU_APP_ADDR (*((uint16_t *) 0x0120))
 #else
 #define _CEU_APP_ADDR 0
 #endif
